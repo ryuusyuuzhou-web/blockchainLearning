@@ -5,8 +5,11 @@ import { ethers } from "ethers";
 
 // 利用公共rpc节点连接以太坊网络
 // 可以在 https://chainlist.org 上找到
-const ALCHEMY_MAINNET_URL = 'https://rpc.ankr.com/eth';
-const ALCHEMY_SEPOLIA_URL = 'https://rpc.sepolia.org';
+
+// my infura project id: cb0438cfc8d6409fbb32af11c44ecc25
+const ALCHEMY_MAINNET_URL = 'https://mainnet.infura.io/v3/cb0438cfc8d6409fbb32af11c44ecc25';
+const ALCHEMY_SEPOLIA_URL = 'https://hoodi.infura.io/v3/cb0438cfc8d6409fbb32af11c44ecc25';
+//const ALCHEMY_MAINNET_URL = 'https://ethereum-rpc.publicnode.com';
 // 连接以太坊主网
 const providerETH = new ethers.JsonRpcProvider(ALCHEMY_MAINNET_URL)
 // 连接Sepolia测试网

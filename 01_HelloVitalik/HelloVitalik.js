@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 
 // 利用ethers默认的Provider连接以太坊网络
 // const provider = new ethers.getDefaultProvider();
-const ALCHEMY_MAINNET_URL = 'https://eth-mainnet.g.alchemy.com/v2/oKmOQKbneVkxgHZfibs-iFhIlIAl6HDN';
+const ALCHEMY_MAINNET_URL = 'https://mainnet.infura.io/v3/cb0438cfc8d6409fbb32af11c44ecc25';
 const provider = new ethers.JsonRpcProvider(ALCHEMY_MAINNET_URL)
 
 const main = async () => {

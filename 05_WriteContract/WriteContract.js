@@ -3,16 +3,17 @@
 // 参数分别为合约地址`address`，合约ABI `abi`，Signer变量`signer`
 
 import { ethers } from "ethers";
+import configTmp from'../config.ts';
 // playcode免费版不能安装ethers，用这条命令，需要从网络上import包（把上面这行注释掉）
 // import { ethers } from "https://cdn-cors.ethers.io/lib/ethers-5.6.9.esm.min.js";
 
 // 利用Alchemy的rpc节点连接以太坊网络
 // 准备 alchemy API 可以参考https://github.com/AmazingAng/WTFSolidity/blob/main/Topics/Tools/TOOL04_Alchemy/readme.md
-const ALCHEMY_GOERLI_URL = 'https://eth-goerli.alchemyapi.io/v2/GlaeWuylnNM3uuOo-SAwJxuwTdqHaY5l';
+const ALCHEMY_GOERLI_URL = configTmp.URL.HOLESKY_URL;
 const provider = new ethers.JsonRpcProvider(ALCHEMY_GOERLI_URL);
-
+ 
 // 利用私钥和provider创建wallet对象
-const privateKey = '0x227dbb8586117d55284e26620bc76534dfbd2394be34cf4a09cb775d593b6f2b'
+const privateKey = configTmp.Sepolia1.WALLET_PRIVATE
 const wallet = new ethers.Wallet(privateKey, provider)
 
 // WETH的ABI
@@ -22,8 +23,8 @@ const abiWETH = [
     "function transfer(address, uint) public returns (bool)",
     "function withdraw(uint) public",
 ];
-// WETH合约地址（Goerli测试网）
-const addressWETH = '0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6'
+// WETH合约地址（测试网）
+const addressWETH = '0x94373a4919B3240D86eA41593D5eBa789FEF3848'
 // WETH Contract
 
 // 声明可写合约
@@ -39,6 +40,10 @@ const main = async () => {
     console.log("\n1. 读取WETH余额")
     const balanceWETH = await contractWETH.balanceOf(address)
     console.log(`存款前WETH持仓: ${ethers.formatEther(balanceWETH)}\n`)
+
+    const balanceWETH1 = await contractWETH.balanceOf(configTmp.sepolia_test2.WALLET1_address)
+    console.log(`存款前WETH持仓: ${ethers.formatEther(balanceWETH1)}\n`)
+    return
     //读取钱包内ETH余额
     const balanceETH = await provider.getBalance(wallet)
 
@@ -59,7 +64,7 @@ const main = async () => {
         // 3. 调用transfer()函数，将0.001 WETH转账给 vitalik
         console.log("\n3. 调用transfer()函数，给vitalik转账0.001 WETH")
         // 发起交易
-        const tx2 = await contractWETH.transfer("vitalik.eth", ethers.parseEther("0.001"))
+        const tx2 = await contractWETH.transfer("0xd6459F1Aee365639297e2d56EE58440a0Fb4894c", ethers.parseEther("0.0001"))
         // 等待交易上链
         await tx2.wait()
         const balanceWETH_transfer = await contractWETH.balanceOf(address)

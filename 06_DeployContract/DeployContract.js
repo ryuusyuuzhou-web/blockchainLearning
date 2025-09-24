@@ -7,16 +7,16 @@
 // 其中args为合约构造函数的参数
 
 import { ethers } from "ethers";
-
+import configTmp from'../config.ts';
 // 利用Alchemy的rpc节点连接以太坊网络
 // 准备 alchemy API 可以参考https://github.com/AmazingAng/WTFSolidity/blob/main/Topics/Tools/TOOL04_Alchemy/readme.md 
-const ALCHEMY_GOERLI_URL = 'https://eth-goerli.alchemyapi.io/v2/GlaeWuylnNM3uuOo-SAwJxuwTdqHaY5l';
+const ALCHEMY_GOERLI_URL = configTmp.URL.HOLESKY_URL;
 const provider = new ethers.JsonRpcProvider(ALCHEMY_GOERLI_URL);
 
 // 利用私钥和provider创建wallet对象
-const privateKey = '0x227dbb8586117d55284e26620bc76534dfbd2394be34cf4a09cb775d593b6f2b'
-const wallet = new ethers.Wallet(privateKey, provider)
-
+const privateKey = configTmp.sepolia_test2.WALLET_PRIVATE;
+const wallet = new ethers.Wallet(privateKey, provider);
+// 合约地址 0x65f3682954E2B92ee56E06C235dF744cF0010f7a
 // ERC20的人类可读abi
 const abiERC20 = [
     "constructor(string memory name_, string memory symbol_)",
@@ -46,7 +46,7 @@ const main = async () => {
         // 1. 利用contractFactory部署ERC20代币合约
         console.log("\n1. 利用contractFactory部署ERC20代币合约")
         // 部署合约，填入constructor的参数
-        const contractERC20 = await factoryERC20.deploy("WTF Token", "WTF")
+        const contractERC20 = await factoryERC20.deploy("WTF Token ZHOU", "WTF ZHOU")
         console.log(`合约地址: ${contractERC20.target}`);
         console.log("部署合约的交易详情")
         console.log(contractERC20.deploymentTransaction())
@@ -58,7 +58,7 @@ const main = async () => {
         console.log("\n2. 调用mint()函数，给自己地址mint 10,000代币")
         console.log(`合约名称: ${await contractERC20.name()}`)
         console.log(`合约代号: ${await contractERC20.symbol()}`)
-        let tx = await contractERC20.mint("10000")
+        let tx = await contractERC20.mint("1000000")
         console.log("等待交易上链")
         await tx.wait()
         console.log(`mint后地址中代币余额: ${await contractERC20.balanceOf(wallet)}`)
@@ -66,7 +66,7 @@ const main = async () => {
 
         // 3. 调用transfer()函数，给Vitalik转账1000代币
         console.log("\n3. 调用transfer()函数，给Vitalik转账1,000代币")
-        tx = await contractERC20.transfer("vitalik.eth", "1000")
+        tx = await contractERC20.trannsfer("vitalik.eth", "1000")
         console.log("等待交易上链")
         await tx.wait()
         console.log(`Vitalik钱包中的代币余额: ${await contractERC20.balanceOf("vitalik.eth")}`)
