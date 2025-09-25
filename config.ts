@@ -3,6 +3,7 @@ export default{
         INFURA_SEPOLIA_URL: 'https://sepolia.infura.io/v3/',
         INFURA_GOERLI_URL: 'https://goerli.infura.io/v3/',
         HOLESKY_URL: 'https://ethereum-holesky.publicnode.com',
+        HOLESKY_URL_WSS: 'wss://ethereum-holesky.publicnode.com',
         key:"cb0438cfc8d6409fbb32af11c44ecc25" 
 
     },
@@ -14,5 +15,10 @@ export default{
         WALLET_PRIVATE: '0x2d7c2c233f82d2f1c5bc0e6779e964d30e6d349349143113e66bd616fd1a1df5',
         WALLET_address: '0xa31d138B6b6EC3EC3614899c7475C65B2d5aB0B0'
 
+    },
+    ERC20: {
+        // 合约地址
+        HOLESKY_WETH: '0x65f3682954E2B92ee56E06C235dF744cF0010f7a'
     }
+
 };

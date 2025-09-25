@@ -1,14 +1,14 @@
 import { ethers } from "ethers";
-
+import config from "../config.ts";
 // 利用Alchemy的rpc节点连接以太坊网络
 // 准备 alchemy API 可以参考https://github.com/AmazingAng/WTFSolidity/blob/main/Topics/Tools/TOOL04_Alchemy/readme.md 
-const ALCHEMY_MAINNET_URL = 'https://eth-mainnet.g.alchemy.com/v2/oKmOQKbneVkxgHZfibs-iFhIlIAl6HDN';
-const provider = new ethers.JsonRpcProvider(ALCHEMY_MAINNET_URL);
+const ALCHEMY_MAINNET_URL = config.URL.HOLESKY_URL_WSS;
+const provider = new ethers.WebSocketProvider(ALCHEMY_MAINNET_URL);
 
 // 合约地址
-const addressUSDT = '0xdac17f958d2ee523a2206206994597c13d831ec7'
+const addressUSDT = config.ERC20.HOLESKY_WETH;
 // 交易所地址
-const accountBinance = '0x28C6c06298d514Db089934071355E5743bf21d60'
+const accountBinance = config.Sepolia1.WALLET_address
 // 构建ABI
 const abi = [
   "event Transfer(address indexed from, address indexed to, uint value)",

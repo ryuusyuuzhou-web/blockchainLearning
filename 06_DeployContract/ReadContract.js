@@ -9,6 +9,7 @@ import configTmp from'../config.ts';
 //const ALCHEMY_MAINNET_URL = 'https://mainnet.infura.io/v3/cb0438cfc8d6409fbb32af11c44ecc25';
 const ALCHEMY_MAINNET_URL = configTmp.URL.HOLESKY_URL;
 const provider = new ethers.JsonRpcProvider(ALCHEMY_MAINNET_URL);
+// WETH合约地址和ABI（IERC20接口）
 const addressWETH = '0x65f3682954E2B92ee56E06C235dF744cF0010f7a';
 const abiERC20 = [
     "constructor(string memory name_, string memory symbol_)",
@@ -45,9 +46,9 @@ const main = async () => {
     const contractTmp = contractWETH.connect(wallet1);
     
 
-    await contractTmp.transfer(configTmp.Sepolia1.WALLET_address, "100")
+    const tx = await contractTmp.transfer(configTmp.Sepolia1.WALLET_address, "100")
     console.log("等待交易上链")
-   
+    await tx.wait()
     console.log(`Sepolia1持仓: ${await contractWETH.balanceOf(configTmp.Sepolia1.WALLET_address)}\n`)
     console.log(`sepolia_test2持仓: ${await contractWETH.balanceOf(configTmp.sepolia_test2.WALLET1_address)}\n`)
 
