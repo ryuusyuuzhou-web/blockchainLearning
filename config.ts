@@ -17,8 +17,12 @@ export default{
 
     },
     ERC20: {
-        // 合约地址
-        HOLESKY_WETH: '0x65f3682954E2B92ee56E06C235dF744cF0010f7a'
+        // my合约地址 sepolia 和 holesky通用
+        HOLESKY_WETH: '0x65f3682954E2B92ee56E06C235dF744cF0010f7a',
+    },
+    ERC721: {
+        //Bored Ape Yacht Club /BAYC  / sepolia
+        sepolia_comm_WETH: '0x59eb8A016c301D7E358e6b16Edd7843A3106205B'
     }
 
 };

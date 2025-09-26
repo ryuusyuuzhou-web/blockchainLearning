@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
-
+import config from "../config.ts";
 //准备 alchemy API 可以参考https://github.com/AmazingAng/WTFSolidity/blob/main/Topics/Tools/TOOL04_Alchemy/readme.md 
-const ALCHEMY_MAINNET_URL = 'https://eth-mainnet.g.alchemy.com/v2/oKmOQKbneVkxgHZfibs-iFhIlIAl6HDN';
+const ALCHEMY_MAINNET_URL = config.URL.INFURA_SEPOLIA_URL + config.URL.key
 const provider = new ethers.JsonRpcProvider(ALCHEMY_MAINNET_URL);
 
 // 合约abi
@@ -11,8 +11,8 @@ const abiERC721 = [
     "function supportsInterface(bytes4) public view returns(bool)",
 ];
 // ERC721的合约地址，这里用的BAYC
-const addressBAYC = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
-// 创建ERC721合约实例
+const addressBAYC = "0x59eb8A016c301D7E358e6b16Edd7843A3106205B"
+// 创建ERC721合约实
 const contractERC721 = new ethers.Contract(addressBAYC, abiERC721, provider)
 
 // ERC721接口的ERC165 identifier

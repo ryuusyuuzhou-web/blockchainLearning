@@ -4,22 +4,22 @@
 // 直接从contract中获取
 // const interface2 = contract.interface
 import { ethers } from "ethers";
-
+import config from "../config.ts";
 //准备 alchemy API 可以参考https://github.com/AmazingAng/WTFSolidity/blob/main/Topics/Tools/TOOL04_Alchemy/readme.md
-const ALCHEMY_GOERLI_URL = 'https://eth-goerli.alchemyapi.io/v2/GlaeWuylnNM3uuOo-SAwJxuwTdqHaY5l';
+const ALCHEMY_GOERLI_URL = config.URL.INFURA_SEPOLIA_URL + config.URL.key;
 const provider = new ethers.JsonRpcProvider(ALCHEMY_GOERLI_URL);
 
 // 利用私钥和provider创建wallet对象
-const privateKey = '0x227dbb8586117d55284e26620bc76534dfbd2394be34cf4a09cb775d593b'
+const privateKey = config.sepolia_test2.WALLET_PRIVATE
 const wallet = new ethers.Wallet(privateKey, provider)
 
 // WETH的ABI
 const abiWETH = [
     "function balanceOf(address) public view returns(uint)",
-    "function deposit() public payable",
+    "function transfer(address, uint) public returns (bool)",
 ];
 // WETH合约地址（Goerli测试网）
-const addressWETH = '0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6'
+const addressWETH = config.ERC20.HOLESKY_WETH;
 
 // 声明WETH合约
 const contractWETH = new ethers.Contract(addressWETH, abiWETH, wallet)
@@ -53,14 +53,15 @@ const main = async () => {
         console.log("\n2. 调用deposit()函数，存入0.001 ETH")
         // 编码calldata
         const param2 = contractWETH.interface.encodeFunctionData(
-            "deposit"
+            "transfer",
+             [config.Sepolia1.WALLET_address, ethers.parseEther("1")]
             );
         console.log(`编码结果： ${param2}`)
         // 创建交易
         const tx2 = {
             to: addressWETH,
             data: param2,
-            value: ethers.parseEther("0.001")}
+        }
         // 发起交易，写入操作需要 wallet.sendTransaction(tx)
         const receipt1 = await wallet.sendTransaction(tx2)
         // 等待交易上链

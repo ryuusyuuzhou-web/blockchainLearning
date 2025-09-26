@@ -19,23 +19,39 @@ let wallets = [];
 for (let i = 0; i < numWallet; i++) {
 
     let baseWalletNew = baseWallet.derivePath(i.toString());
-    console.log(`第${i+1}个钱包地址： ${baseWalletNew.address}`)
+    console.log(`第${i + 1}个钱包地址： ${baseWalletNew.address}`)
+    console.log(`第${i + 1}个钱包私钥： ${baseWalletNew.privateKey}`)
     wallets.push(baseWalletNew);
 }
+
+// console.log("baseWallet----",baseWallet);
+// console.log("wallets-------",wallets);
 
 // 3. 保存钱包（加密json）
 console.log("\n3. 保存钱包（加密json）")
 const wallet = ethers.Wallet.fromPhrase(mnemonic)
 console.log("通过助记词创建钱包：")
-console.log(wallet)
+//console.log(wallet)
 // 加密json用的密码，可以更改成别的
 const pwd = "password"
 const json = await wallet.encrypt(pwd)
 console.log("钱包的加密json：")
-console.log(json)
+//console.log(json)
 
 // 4. 从加密json读取钱包
 const wallet2 = await ethers.Wallet.fromEncryptedJson(json, pwd);
 console.log("\n4. 从加密json读取钱包：")
-console.log(wallet2)
+//console.log(wallet2)
 
+
+for (let i = 0; i < numWallet; i++) {
+
+    let childrens = basePath + "/" + i.toString();
+    // ethers.Wallet.fromMnemonic(wallet2.mnemonic, childrens).then((baseWalletNew) => {
+    //     console.log(`第${i + 1}个钱包地址： ${baseWalletNew.address}`)
+    //     console.log(`第${i + 1}个钱包私钥： ${baseWalletNew.privateKey}`)
+    // });
+    // const baseWalletNew =  ethers.Wallet.(mnemonic, childrens)
+    // console.log(`第${i + 1}个钱包地址： ${baseWalletNew.address}`)
+    // console.log(`第${i + 1}个钱包私钥： ${baseWalletNew.privateKey}`)
+}
