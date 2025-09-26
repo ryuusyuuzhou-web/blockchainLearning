@@ -1,6 +1,6 @@
+import * as contractJson from "./contract.json" assert {type: "json"};
 import { ethers } from "ethers";
 import { MerkleTree } from "merkletreejs";
-import * as contractJson from "./contract.json" assert {type: "json"};
 
 // 1. 生成merkle tree
 console.log("\n1. 生成merkle tree")

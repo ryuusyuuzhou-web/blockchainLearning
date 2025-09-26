@@ -24,8 +24,8 @@ for (let i = 0; i < numWallet; i++) {
     wallets.push(baseWalletNew);
 }
 
-// console.log("baseWallet----",baseWallet);
-// console.log("wallets-------",wallets);
+ console.log("baseWallet----",baseWallet);
+ console.log("wallets-------",wallets);
 
 // 3. 保存钱包（加密json）
 console.log("\n3. 保存钱包（加密json）")
@@ -36,12 +36,12 @@ console.log("通过助记词创建钱包：")
 const pwd = "password"
 const json = await wallet.encrypt(pwd)
 console.log("钱包的加密json：")
-//console.log(json)
+console.log(json)
 
 // 4. 从加密json读取钱包
 const wallet2 = await ethers.Wallet.fromEncryptedJson(json, pwd);
 console.log("\n4. 从加密json读取钱包：")
-//console.log(wallet2)
+console.log(wallet2)
 
 
 for (let i = 0; i < numWallet; i++) {
@@ -54,4 +54,5 @@ for (let i = 0; i < numWallet; i++) {
     // const baseWalletNew =  ethers.Wallet.(mnemonic, childrens)
     // console.log(`第${i + 1}个钱包地址： ${baseWalletNew.address}`)
     // console.log(`第${i + 1}个钱包私钥： ${baseWalletNew.privateKey}`)
+
 }
